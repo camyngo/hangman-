@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app>
+
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="hangman.css">
+    <script src="hangman.js"></script>
+</head>
+
+<body ng-controller="hangmanController">
+    <h1>Classic Hangman game!! Take your best guesses</h1>
+    <h1>
+        <center> The topic is about animal</center>
+    </h1>
+    <button ng-click="hint();" class="btn btn-primary btn-large">Hints</button>
+    <div>
+        {{hints}}
+    </div>
+    
+    <button ng-click="reset();" class="btn btn-primary btn-large">New Game</button>
+    <div class="container-fluid">
+        <div class="secretWord">
+            <ul class="list-inline">
+                <li ng-repeat="letter in secretWord">
+                    <span ng-hide="letter.chosen">_</span>
+                    <span ng-show="letter.chosen">{{ letter.name }}</span>
+                </li>
+            </ul>
+
+            <div class="letters">
+                <ul class="list-inline">
+                    <li ng-repeat="letter in letters">
+                        <button class="btn btn-primary letter-button" ng-disabled="letter.chosen" ng-click="try(letter);">{{letter.name}}</button>
+                    </li>
+                </ul>
+            </div>
+
+            <p>
+                <span ng-hide="win || lost">You have {{ missesAllowed - numMisses }} guesses remaining.</span>
+                <span ng-show="win">Well done!</span>
+                <span ng-show="lost">Sorry, please try again!</span>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
