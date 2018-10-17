@@ -1,50 +1,279 @@
 <!DOCTYPE html>
+
 <html ng-app>
 
+
+
 <head>
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-    <link rel="stylesheet" type="text/css" href="hangman.css">
+
+    
+
     <script src="hangman.js"></script>
+
+    
+
+    <!-- Latest compiled and minified CSS -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    
+
+    <link rel="stylesheet" type="text/css" href="hangman.css">
+
+    
+
+    <title>Hangman</title>
+
 </head>
 
-<body ng-controller="hangmanController">
-    <h1>Classic Hangman game!! Take your best guesses</h1>
-    <h1>
-        <center> The topic is about animal</center>
-    </h1>
-    <button ng-click="hint();" class="btn btn-primary btn-large">Hints</button>
-    <div>
-        {{hints}}
-    </div>
-    
-    <button ng-click="reset();" class="btn btn-primary btn-large">New Game</button>
-    <div class="container-fluid">
-        <div class="secretWord">
-            <ul class="list-inline">
-                <li ng-repeat="letter in secretWord">
-                    <span ng-hide="letter.chosen">_</span>
-                    <span ng-show="letter.chosen">{{ letter.name }}</span>
-                </li>
-            </ul>
 
-            <div class="letters">
-                <ul class="list-inline">
-                    <li ng-repeat="letter in letters">
-                        <button class="btn btn-primary letter-button" ng-disabled="letter.chosen" ng-click="try(letter);">{{letter.name}}</button>
-                    </li>
-                </ul>
+
+
+
+<!-- Navigation -->
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+
+      <div class="container">
+
+        <a class="navbar-brand" href="/index.html">Home</a>
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+
+        Menu
+
+        <i class="fa fa-bars"></i>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+
+              <a class="nav-link" href="/index.html">Home</a>
+
+            </li>
+
+            <li class="nav-item">
+
+              <a class="nav-link" href="/lab1/lab-1-portfolio-benson-kane/index.html">About</a>
+
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </nav>
+
+    <!-- Page Header -->
+
+    <header class="masthead">
+
+      <div class="overlay"></div>
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-8 col-md-10 mx-auto">
+
+            <div class="page-heading">
+
+              <h1>Play Hangman!</h1>
+
             </div>
 
-            <p>
-                <span ng-hide="win || lost">You have {{ missesAllowed - numMisses }} guesses remaining.</span>
-                <span ng-show="win">Well done!</span>
-                <span ng-show="lost">Sorry, please try again!</span>
-            </p>
+            <div class="page-heading">
+
+            </div>
+
+          </div>
+
         </div>
+
+      </div>
+
+    </header>
+
+
+
+<body ng-controller="hangmanController" ng-keypress="myFunct($event)">
+
+    <h3>
+
+        <center>Topic: Animal Kingdom</center>
+
+    </h3>
+
+    <div class="container" id="instructions">
+
+      <ul class="a"><li>Instructions:</li></ul>
+
+        <ul class="b">
+
+          <li>Guess letters with the keyboard or by clicking the buttons below</li>
+
+          <li>Past guesses are marked on the buttons</li>
+
+          <li>Click the hint button for a hint</li>
+
+        </ul>
+
     </div>
+
+    <div class="text-center">
+
+        <button ng-click="hint();" class="buttonCentered">Hints</button>
+
+        <div>
+
+          {{hints}}
+
+        </div>
+
+    </div>
+
+    
+
+    <br>
+
+    
+
+    
+
+    <div class="text-center">
+
+        <button ng-click="reset();" class="buttonCentered">New Game</button>
+
+        
+
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="secretWord">
+
+            <ul class="list-inline">
+
+                <li ng-repeat="letter in secretWord">
+
+                    <span ng-hide="letter.chosen">_</span>
+
+                    <span ng-show="letter.chosen">{{ letter.name }}</span>
+
+                </li>
+
+            </ul>
+
+
+
+            <div class="letters">
+
+                <ul class="list-inline">
+
+                    <li ng-repeat="letter in letters">
+
+                        <button class="btn btn-primary letter-button" ng-disabled="letter.chosen" ng-click="try(letter);">{{letter.name}}</button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <p>
+
+                <span ng-hide="win || lost">You have <span id='guessesLeft'>{{ missesAllowed - numMisses }}</span> guesses remaining.</span>
+
+                <span ng-show="win">Well done!</span>
+
+                <span ng-show="lost">Sorry, please try again!</span>
+
+            </p>
+
+        </div>
+
+    </div>
+
 </body>
+
+<!-- Footer ******************************************************************************************************************-->
+
+      <footer>
+
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+              <ul class="list-inline text-center">
+
+                <li class="list-inline-item">
+
+                  <a href="https://www.linkedin.com/in/camy-ngo/">
+
+                  <img class="socialButton" src="data:image/png;base64,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" alt="Linkedin">
+
+                  </a>
+
+                </li>
+
+                <li class="list-inline-item">
+
+                  <a href = "https://www.instagram.com/camy_ngo/">
+
+                  <img class="socialButton" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPESURBVGhD7VlZTxNRFKa/Sf0BMlVppwjtTGkjLdCWWH3QSCBRgwjGsJiUVdQoTSSudXtTY+IGSuKKURNfXDAuRAGNT6Y+ebzfnZk64lhIe8fhYb7kS6Cdnu98c+85N3OmwoULFy5cuPjP8HgDiuSVlRHJr16RZOWxELJYXlkdRmxoaFI2QQoE10CUCZKdlGT1EbR0WbGolFWVrULeEIsqdbQ7EaPuzXHqSTeURcTY1RSjiBIxGVLyki+k6PJigLtjmAgG6+h0a5Ke9Wy1hadbU1TLNKDFttt3r09ZradRNjzGdoKJic60ZQIiObE3TTW1mhmvX32IHLRUyoAkh7zaUqt0pi1lKWwHT7FVN3TX+dRKPZ3SIfmVIQRDTVgJiuCdrjQ97f7zM/wfZprQZjkM6umUDrZPryEYitEsJIrtqRhPtjka/cvMzkS9sSpX9XRKBwvyBMHQWcwiomgUNoiVMX8HTf6dX53W0ykdrNCfI1hP2h4jo9uaKFgbpo7U3/GhCW3koKdTOsox8mj/FlZbEdoQUGmTGuF3eGrRXS9GR43gHMjuSNBM7iC9vX+bqjaaDzmVfNVhOt6yvHPIFiOZls30JttelE9Gd9K6QJiLv3o9Q8C79x/pxq1JGjmSpWpFK2xcc7Zzu2UMM6Ep3Eh2cA/RqwtF+fPlBert66N9PRnK539wI2bML3yh5q0tPLnqYJS+Tp+wjGMQmo4Yodm7esr/xtz8AgUUra2O9ReP6YiR/IscffvwQk+3OEYOj/EEU6mkZSyDjhhpaGyiqpoor4mlcP3mJE+wamOdZSyDjhhBUrgOhb0UVrSRRCLBRdGdlsLwoWP82hW5tY71t3NRFDK607+AYpdDK7jY0Upl1lJxLVosEl6Mz3Pzi9rvSctYBh0xAt7IZQoHIg4/dCfUAzg0erTQdnHNrXMZyxhmOmYEvJnr53cbv7EivluOCdBRIyC2GfZ/MpkgX02EE3/js6VOczMdNyKKQo2wQPzBCl3JSsxOGp1QyIMVC3QVwQ50tVmK2cm+rlbNiIhHXTz4I1i8oclSzC7+fHme6uMN2tYSMnwwjYOmLg1ZitrBOxcHjNWgSn9orZ5OWfBgFouASqSePj0YtxQWydl741yLGxE1oAMwtuTjSxZYjcZsWxlsp7uXBgsmRI9MOTBQNg+xY/FGXozoLGMDHWURMXo721hNNBa2E9fyKyFdXixwd7DUv8Vsol95sF4Or9JlbYMHs1iMUvFyhr/LML+wKYk8xmV0J33Oa++LHhcuXLhw4eIPVFT8AnCLA42DgnpMAAAAAElFTkSuQmCC" alt="Instagram">
+  
+
+                  </a>
+
+                </li>
+
+                <li class="list-inline-item">
+
+                  <a href = "https://github.com/camyngo">
+
+                  <img class="socialButton" src="data:image/png;base64,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" alt="GitHub">
+                  
+
+                  </a>
+
+                </li>
+
+              </ul>
+
+              <p>
+
+                <a class="returnToTop" href="#top">Return to Top</a>
+
+              </p>
+
+              <p class="copyright text-muted" style="margin-left:auto; margin-right:auto; text-align:center;">Copyright &copy; 2018 Camy Ngo & Benson Kane</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </footer>
 
 </html>
