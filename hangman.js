@@ -216,19 +216,23 @@ function hangmanController($scope) {
 
     var checkForEndOfGame = function() {
 
-        $scope.win = _.reduce($scope.secretWord, function(acc, letter) {
+        if (!$scope.lost) {     //if we already lost, should stay lost untol reset
 
-            return acc && letter.chosen;
+            $scope.win = _.reduce($scope.secretWord, function(acc, letter) {
 
-        }, true);
+                return acc && letter.chosen;
 
+            }, true);
 
+    
 
-        if (!$scope.win && $scope.numMisses === $scope.missesAllowed) {
+            if (!$scope.win && $scope.numMisses >= $scope.missesAllowed) {
 
-            $scope.lost = true;
+                $scope.lost = true;
 
-            revealSecret();
+                revealSecret();
+
+            }
 
         }
 
@@ -263,6 +267,8 @@ function hangmanController($scope) {
         $scope.win = false;
 
         $scope.lost = false;
+
+        $scope.hints = '';
 
     };
 
